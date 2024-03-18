@@ -11,6 +11,13 @@ object Sequences: // Essentially, generic linkedlists
 
   object Sequence:
 
+    def head[E](l: Sequence[E]): E = l match
+      case Cons(h, t) => h
+
+    def tail[E](l: Sequence[E]): Sequence[E] = l match
+      case Cons(h, t) => t
+      case _ => Nil()
+
     def sum(l: Sequence[Int]): Int = l match
       case Cons(h, t) => h + sum(t)
       case _          => 0
@@ -27,7 +34,10 @@ object Sequences: // Essentially, generic linkedlists
     // Lab 03
     def zip[A, B](first: Sequence[A], second: Sequence[B]): Sequence[(A, B)] = ???
 
-    def take[A](l: Sequence[A])(n: Int): Sequence[A] = ???
+    def take[A](l: Sequence[A])(n: Int): Sequence[A] = l match
+      case _ if n == 0 => Nil()
+      case Nil() => Nil()
+      case Cons(h, t) => Cons(h, take(tail(l))(n - 1))
     
     def concat[A](l1: Sequence[A], l2: Sequence[A]): Sequence[A] = ???
     def flatMap[A, B](l: Sequence[A])(mapper: A => Sequence[B]): Sequence[B] = ???
